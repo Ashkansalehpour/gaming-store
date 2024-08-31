@@ -127,6 +127,3 @@ Project Link: [https://github.com/yourusername/gaming-store](https://github.com/
 - [GitHub Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet)
 - [Shields.io](https://shields.io/)
 
----
-
-Feel free to replace placeholders like `yourusername` with your actual GitHub username, and add any additional information or customization as needed. This `README.md` provides a comprehensive overview of your project and is formatted to look professional on your GitHub repository.
