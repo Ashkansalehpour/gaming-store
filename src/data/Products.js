@@ -1,36 +1,36 @@
 const products = [
-    {
-      id: 1,
-      name: 'Gaming Chair',
-      price: 150,
-      dateAdded: '2024-08-01',
-      category: 'chairs',
-      image: '[Razer]GamingChair.png',
-    },
-    {
-      id: 2,
-      name: 'Gaming Monitor',
-      price: 300,
-      dateAdded: '2024-08-05',
-      category: 'monitors',
-      image: '[Xiaomi]GamingMonitor.png',
-    },
-    {
-      id: 3,
-      name: 'Gaming Mouse',
-      price: 50,
-      dateAdded: '2024-08-10',
-      category: 'mice',
-      image: '[Razer]GamingMouse.png',
-    },
-    {
-      id: 4,
-      name: 'Gaming Keyboard',
-      price: 100,
-      dateAdded: '2024-08-15',
-      category: 'keyboards',
-      image: 'gaming-keyboard.jpg',
-    },
-  ];
-  
-  export default products;
+  {
+    id: 1,
+    name: 'Gaming Chair',
+    image: 'gamingChair.jpg',
+    price: 299,
+    dateAdded: '2023-08-15',
+    category: 'Chairs',
+  },
+  {
+    id: 2,
+    name: 'Gaming Monitor',
+    image: 'gamingMonitor.jpg',
+    price: 499,
+    dateAdded: '2023-08-16',
+    category: 'Monitors',
+  },
+  {
+    id: 3,
+    name: 'Gaming Mouse',
+    image: 'gamingMouse.jpg',
+    price: 99,
+    dateAdded: '2023-08-17',
+    category: 'Mice',
+  },
+  {
+    id: 4,
+    name: 'Gaming Keyboard',
+    image: 'gamingKeyboard.jpg',
+    price: 199,
+    dateAdded: '2023-08-18',
+    category: 'Keyboards',
+  },
+];
+
+export default products;

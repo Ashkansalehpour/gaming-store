@@ -13,6 +13,7 @@ function ProductDetail() {
   return (
     <div className="product-detail">
       <h2>{product.name}</h2>
+      {/* Correct public path */}
       <img src={`/assets/images/${product.image}`} alt={product.name} className="img-fluid" />
       <p>Price: ${product.price}</p>
       <p>Date Added: {product.dateAdded}</p>
