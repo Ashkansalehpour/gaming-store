@@ -6,6 +6,9 @@ const products = [
     price: 299,
     dateAdded: '2023-08-15',
     category: 'Chairs',
+    brand: 'Razer',
+    color: 'Black',
+    year: 2023,
   },
   {
     id: 2,
@@ -14,6 +17,9 @@ const products = [
     price: 499,
     dateAdded: '2023-08-16',
     category: 'Monitors',
+    brand: 'Xiaomi',
+    color: 'White',
+    year: 2022,
   },
   {
     id: 3,
@@ -22,6 +28,9 @@ const products = [
     price: 99,
     dateAdded: '2023-08-17',
     category: 'Mice',
+    brand: 'Razer',
+    color: 'Black',
+    year: 2021,
   },
   {
     id: 4,
@@ -30,6 +39,9 @@ const products = [
     price: 199,
     dateAdded: '2023-08-18',
     category: 'Keyboards',
+    brand: 'Razer',
+    color: 'Black',
+    year: 2023,
   },
 ];
 
