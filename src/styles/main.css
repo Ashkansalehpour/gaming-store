@@ -41,3 +41,25 @@ footer p {
   text-align: center;
   padding: 20px;
 }
+
+.product-list {
+  display: flex;
+}
+
+.filter-section {
+  width: 20%;
+  padding: 10px;
+}
+
+.product-section {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  width: 200px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}

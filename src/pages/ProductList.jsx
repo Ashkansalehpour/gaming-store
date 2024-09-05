@@ -1,16 +1,33 @@
-import React from 'react';
+// src/pages/ProductList.jsx
+import React, { useState } from 'react';
 import products from '../data/Products';
 import ProductCard from '../components/ProductCard';
+import Filter from '../components/Filter';
 
 function ProductList() {
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const handleFilterChange = (filters) => {
+    const filtered = products.filter((product) => {
+      return (
+        (filters.category === '' || product.category === filters.category) &&
+        (filters.brand === '' || product.brand === filters.brand) &&
+        (filters.color === '' || product.color === filters.color) &&
+        (product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1]) &&
+        (filters.year === '' || product.year === parseInt(filters.year))
+      );
+    });
+    setFilteredProducts(filtered);
+  };
+
   return (
     <div className="product-list">
-      <h2>All Products</h2>
-      <div className="row">
-        {products.map(product => (
-          <div key={product.id} className="col-md-4 mb-4">
-            <ProductCard product={product} />
-          </div>
+      <div className="filter-section">
+        <Filter onFilterChange={handleFilterChange} />
+      </div>
+      <div className="product-section">
+        {filteredProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>
