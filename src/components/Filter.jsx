@@ -1,43 +1,45 @@
-// src/components/Filter.jsx
 import React, { useState } from 'react';
 
 function Filter({ onFilterChange }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
-  const [selectedPriceRange, setSelectedPriceRange] = useState([0, 1000]); // Set default min and max values
+  const [selectedPriceRange, setSelectedPriceRange] = useState([0, 1000]);
   const [selectedYear, setSelectedYear] = useState('');
 
   const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-    onFilterChange({ category: e.target.value, brand: selectedBrand, color: selectedColor, priceRange: selectedPriceRange, year: selectedYear });
+    const category = e.target.value;
+    setSelectedCategory(category);
+    onFilterChange({ category, brand: selectedBrand, color: selectedColor, priceRange: selectedPriceRange, year: selectedYear });
   };
 
   const handleBrandChange = (e) => {
-    setSelectedBrand(e.target.value);
-    onFilterChange({ category: selectedCategory, brand: e.target.value, color: selectedColor, priceRange: selectedPriceRange, year: selectedYear });
+    const brand = e.target.value;
+    setSelectedBrand(brand);
+    onFilterChange({ category: selectedCategory, brand, color: selectedColor, priceRange: selectedPriceRange, year: selectedYear });
   };
 
   const handleColorChange = (e) => {
-    setSelectedColor(e.target.value);
-    onFilterChange({ category: selectedCategory, brand: selectedBrand, color: e.target.value, priceRange: selectedPriceRange, year: selectedYear });
+    const color = e.target.value;
+    setSelectedColor(color);
+    onFilterChange({ category: selectedCategory, brand: selectedBrand, color, priceRange: selectedPriceRange, year: selectedYear });
   };
 
   const handlePriceRangeChange = (e) => {
-    const value = parseInt(e.target.value); // Parse the value to a number
-    setSelectedPriceRange([0, value]); // Set range from 0 to the current value
+    const value = parseInt(e.target.value, 10);
+    setSelectedPriceRange([0, value]);
     onFilterChange({ category: selectedCategory, brand: selectedBrand, color: selectedColor, priceRange: [0, value], year: selectedYear });
   };
 
   const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
-    onFilterChange({ category: selectedCategory, brand: selectedBrand, color: selectedColor, priceRange: selectedPriceRange, year: e.target.value });
+    const year = e.target.value;
+    setSelectedYear(year);
+    onFilterChange({ category: selectedCategory, brand: selectedBrand, color: selectedColor, priceRange: selectedPriceRange, year });
   };
 
   return (
     <div className="filter">
       <h4>Filter Products</h4>
-      
       <div>
         <label>Category:</label>
         <select value={selectedCategory} onChange={handleCategoryChange}>
@@ -48,7 +50,6 @@ function Filter({ onFilterChange }) {
           <option value="Keyboards">Keyboards</option>
         </select>
       </div>
-      
       <div>
         <label>Brand:</label>
         <select value={selectedBrand} onChange={handleBrandChange}>
@@ -57,7 +58,6 @@ function Filter({ onFilterChange }) {
           <option value="Xiaomi">Xiaomi</option>
         </select>
       </div>
-      
       <div>
         <label>Color:</label>
         <select value={selectedColor} onChange={handleColorChange}>
@@ -66,9 +66,8 @@ function Filter({ onFilterChange }) {
           <option value="White">White</option>
         </select>
       </div>
-      
       <div>
-        <label>Price Range: $0 - ${selectedPriceRange[1]}</label> {/* Show the selected max price */}
+        <label>Price Range: $0 - ${selectedPriceRange[1]}</label>
         <input 
           type="range" 
           min="0" 
@@ -78,7 +77,6 @@ function Filter({ onFilterChange }) {
         />
         <span>${selectedPriceRange[0]} - ${selectedPriceRange[1]}</span>
       </div>
-      
       <div>
         <label>Year:</label>
         <select value={selectedYear} onChange={handleYearChange}>
