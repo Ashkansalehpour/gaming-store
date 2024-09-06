@@ -1,4 +1,3 @@
-// src/components/ShoppingCart.jsx
 import React, { useState } from 'react';
 
 const ShoppingCart = () => {

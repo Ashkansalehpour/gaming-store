@@ -1,4 +1,3 @@
-// src/pages/Cart.jsx
 import React from 'react';
 
 const Cart = ({ cartItems }) => {

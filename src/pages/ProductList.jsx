@@ -3,7 +3,7 @@ import products from '../data/Products';
 import ProductCard from '../components/ProductCard';
 import Filter from '../components/Filter';
 
-function ProductList({ searchTerm }) {
+function ProductList({ searchTerm, onAddToCart }) {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [filters, setFilters] = useState({
     category: '',
@@ -41,7 +41,11 @@ function ProductList({ searchTerm }) {
       </div>
       <div className="product-section">
         {filteredProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard 
+            key={product.id} 
+            product={product} 
+            onAddToCart={onAddToCart}
+          />
         ))}
       </div>
     </div>

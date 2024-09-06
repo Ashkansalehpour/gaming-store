@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ cartItems }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -20,6 +20,14 @@ const NavbarComponent = () => {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link>
+            </li>
+          </ul>
+          <ul className="navbar-nav ms-auto"> {/* Updated: "ml-auto" to "ms-auto" for Bootstrap 5 */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/cart">
+                {/* Display number of items in the cart */}
+                <i className="bi bi-cart-fill"></i> Cart <span className="badge bg-primary">{cartItems.length}</span>
+              </Link>
             </li>
           </ul>
         </div>

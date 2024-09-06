@@ -1,9 +1,9 @@
-// src/pages/ProductDetail.jsx
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import products from '../data/Products';
 import '../styles/ProductDetail.css';
-function ProductDetail() {
+
+function ProductDetail({ onAddToCart }) {
   const { id } = useParams();
   const product = products.find((p) => p.id === parseInt(id));
 
@@ -23,7 +23,11 @@ function ProductDetail() {
           <p className="price">Price: ${product.price}</p>
           <p>Date Added: {product.dateAdded}</p>
           <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
-          <button className="btn btn-primary">Add to Cart</button>
+          
+          {/* Add to Cart button */}
+          <button className="btn btn-primary" onClick={() => onAddToCart(product)}>
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
