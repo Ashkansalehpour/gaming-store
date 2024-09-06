@@ -1,0 +1,23 @@
+.product-detail {
+    margin: 20px auto;
+  }
+  
+  .product-detail .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .product-detail h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .product-detail .price {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .product-detail button {
+    margin-top: 1rem;
+  }
+  
