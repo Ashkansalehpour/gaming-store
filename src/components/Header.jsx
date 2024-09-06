@@ -1,17 +1,14 @@
-// src/components/Header.jsx
 import React from 'react';
 import NavbarComponent from './NavbarComponent';
 import SearchBar from './SearchBar';
 
-function Header() {
+const Header = ({ onSearch }) => {
   return (
     <header>
       <NavbarComponent />
-      <div className="container mt-2">
-        <SearchBar />
-      </div>
+      <SearchBar onSearch={onSearch} />
     </header>
   );
-}
+};
 
 export default Header;
