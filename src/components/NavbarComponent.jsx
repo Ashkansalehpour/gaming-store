@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ShoppingCart from './ShoppingCart';
 
-const NavbarComponent = ({ cartItems }) => {
+const NavbarComponent = ({ cartItems, removeFromCart }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
+      <div className="container-fluid"> {/* Ensure you're using container-fluid */}
         <Link className="navbar-brand" to="/">YourStore</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -22,12 +23,9 @@ const NavbarComponent = ({ cartItems }) => {
               <Link className="nav-link" to="/about">About</Link>
             </li>
           </ul>
-          <ul className="navbar-nav ms-auto"> {/* Updated: "ml-auto" to "ms-auto" for Bootstrap 5 */}
+          <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                {/* Display number of items in the cart */}
-                <i className="bi bi-cart-fill"></i> Cart <span className="badge bg-primary">{cartItems.length}</span>
-              </Link>
+              <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} />
             </li>
           </ul>
         </div>
