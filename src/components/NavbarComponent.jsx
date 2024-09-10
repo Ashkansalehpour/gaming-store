@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ShoppingCart from './ShoppingCart';
 
-const NavbarComponent = ({ cartItems, removeFromCart }) => {
+const NavbarComponent = ({ cartItems, removeFromCart, updateCartQuantity }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid"> {/* Ensure you're using container-fluid */}
+      <div className="container-fluid">
         <Link className="navbar-brand" to="/">YourStore</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -25,7 +25,7 @@ const NavbarComponent = ({ cartItems, removeFromCart }) => {
           </ul>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} />
+              <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} updateCartQuantity={updateCartQuantity} />
             </li>
           </ul>
         </div>
