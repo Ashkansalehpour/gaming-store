@@ -3,6 +3,18 @@ import React from 'react';
 const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
   const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
+  // Handle decreasing the quantity
+  const decreaseQuantity = (id, quantity) => {
+    if (quantity > 1) {
+      updateCartQuantity(id, quantity - 1); // Only decrease if quantity is greater than 1
+    }
+  };
+
+  // Handle increasing the quantity
+  const increaseQuantity = (id, quantity) => {
+    updateCartQuantity(id, quantity + 1);
+  };
+
   return (
     <div className="cart-page container">
       <h2>Your Shopping Cart</h2>
@@ -28,14 +40,15 @@ const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
                 <div className="quantity-controls d-flex align-items-center">
                   <button 
                     className="btn btn-sm btn-secondary me-2" 
-                    onClick={() => updateCartQuantity(item.id, item.quantity - 1)} // Update quantity
+                    onClick={() => decreaseQuantity(item.id, item.quantity)} // Decrease quantity
+                    disabled={item.quantity <= 1} // Disable the button if quantity is 1
                   >
                     -
                   </button>
                   <span>{item.quantity}</span>
                   <button 
                     className="btn btn-sm btn-secondary ms-2" 
-                    onClick={() => updateCartQuantity(item.id, item.quantity + 1)} // Update quantity
+                    onClick={() => increaseQuantity(item.id, item.quantity)} // Increase quantity
                   >
                     +
                   </button>
@@ -56,3 +69,4 @@ const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
 };
 
 export default Cart;
+  
