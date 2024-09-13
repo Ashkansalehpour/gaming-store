@@ -1,4 +1,3 @@
-// src/components/SearchBar.jsx
 import React, { useState, useEffect } from 'react';
 import products from '../data/Products'; // Assuming you have your product list in Products.js
 

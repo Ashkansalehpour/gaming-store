@@ -1,36 +1,33 @@
 const products = [
   {
     id: 1,
-    name: 'Gaming Chair',
-    image: 'gamingChair.jpg',
-    price: 299,
-    dateAdded: '2023-08-15',
-    category: 'Chairs',
+    name: 'Gaming Mouse',
+    image: 'gamingMouse.jpg',
+    price: 99,
+    category: 'Mouse', // Ensure the name matches the link
+    brand: 'Razer',
+    color: 'Black',
+    year: 2021,
+  },
+  {
+    id: 2,
+    name: 'Gaming Keyboard',
+    image: 'gamingKeyboard.jpg',
+    price: 199,
+    category: 'Keyboard', // Ensure the name matches the link
     brand: 'Razer',
     color: 'Black',
     year: 2023,
   },
   {
-    id: 2,
+    id: 3,
     name: 'Gaming Monitor',
     image: 'gamingMonitor.jpg',
     price: 499,
-    dateAdded: '2023-08-16',
-    category: 'Monitors',
+    category: 'Monitors', // Ensure the name matches the link
     brand: 'Xiaomi',
     color: 'White',
     year: 2022,
-  },
-  {
-    id: 3,
-    name: 'Gaming Mouse',
-    image: 'gamingMouse.jpg',
-    price: 99,
-    dateAdded: '2023-08-17',
-    category: 'Mice',
-    brand: 'Razer',
-    color: 'Black',
-    year: 2021,
   },
   {
     id: 4,
@@ -38,11 +35,12 @@ const products = [
     image: 'gamingKeyboard.jpg',
     price: 199,
     dateAdded: '2023-08-18',
-    category: 'Keyboards',
+    category: 'Keyboards',  // Category
     brand: 'Razer',
     color: 'Black',
     year: 2023,
   },
+  // Add more products as needed
 ];
 
 export default products;

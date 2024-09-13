@@ -1,4 +1,3 @@
-// src/pages/CategoryPage.jsx
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom'; // To get category from the URL
 import products from '../data/Products'; // Assuming you have all products stored here

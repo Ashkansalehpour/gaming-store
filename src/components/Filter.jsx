@@ -46,7 +46,7 @@ function Filter({ onFilterChange }) {
           <option value="">All</option>
           <option value="Chairs">Chairs</option>
           <option value="Monitors">Monitors</option>
-          <option value="Mice">Mice</option>
+          <option value="Mouse">Mouse</option>
           <option value="Keyboards">Keyboards</option>
         </select>
       </div>
