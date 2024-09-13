@@ -1,15 +1,16 @@
-// src/App.js
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
 import NavbarComponent from "./components/NavbarComponent";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/SearchBar"; // Importing the updated SearchBar with live suggestions
 import Footer from "./components/Footer";
 import Cart from "./pages/Cart";
+import CategoryPage from "./pages/CategoryPage";
+import products from "./data/Products"; // Assuming product data is stored here
 import "./App.css";
 
 function App() {
@@ -53,7 +54,7 @@ function App() {
     setCartItems((prevCartItems) =>
       prevCartItems.map(item =>
         item.id === productId
-          ? { ...item, quantity: newQuantity }
+          ? { ...item, quantity: Math.max(newQuantity, 0) } // Prevent negative quantity
           : item
       )
     );
@@ -67,33 +68,54 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavbarComponent 
-          cartItems={cartItems} 
-          removeFromCart={removeFromCart} 
-          updateCartQuantity={updateCartQuantity} // Pass down to ShoppingCart component
+        {/* Navbar with cart information */}
+        <NavbarComponent
+          cartItems={cartItems}
+          removeFromCart={removeFromCart}
+          updateCartQuantity={updateCartQuantity}
         />
+        
+        {/* Search bar with live suggestions */}
         <SearchBar onSearch={handleSearch} />
+
         <main className="container mt-4">
           <Routes>
+            {/* Home page route */}
             <Route path="/" element={<Home />} />
-            <Route 
-              path="/products" 
-              element={<ProductList searchTerm={searchTerm} onAddToCart={handleAddToCart} />} 
+
+            {/* Product listing page route with search functionality */}
+            <Route
+              path="/products"
+              element={<ProductList searchTerm={searchTerm} onAddToCart={handleAddToCart} />}
             />
-            <Route 
-              path="/product/:id" 
-              element={<ProductDetail onAddToCart={handleAddToCart} />} 
+
+            {/* Product detail page route */}
+            <Route
+              path="/product/:id"
+              element={<ProductDetail onAddToCart={handleAddToCart} />}
             />
-            <Route 
-              path="/cart" 
-              element={<Cart 
-                cartItems={cartItems} 
-                updateCartQuantity={updateCartQuantity} 
-                removeFromCart={removeFromCart} 
-              />} 
+
+            {/* Cart page route */}
+            <Route
+              path="/cart"
+              element={
+                <Cart
+                  cartItems={cartItems}
+                  updateCartQuantity={updateCartQuantity}
+                  removeFromCart={removeFromCart}
+                />
+              }
+            />
+
+            {/* Dynamic route for category page */}
+            <Route
+              path="/category/:category"
+              element={<CategoryPage onAddToCart={handleAddToCart} />}
             />
           </Routes>
         </main>
+
+        {/* Footer */}
         <Footer />
       </div>
     </Router>
