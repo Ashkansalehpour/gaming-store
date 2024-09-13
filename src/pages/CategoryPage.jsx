@@ -1,16 +1,17 @@
+// src/pages/CategoryPage.jsx
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom'; // To get category from the URL
-import products from '../data/Products'; // Assuming you have all products stored here
+import { useParams } from 'react-router-dom';
+import products from '../data/Products';
 
-const CategoryPage = () => {
-  const { category } = useParams(); // Get category from the route parameters
+const CategoryPage = ({ onAddToCart }) => {
+  const { category } = useParams();
   const [searchTerm, setSearchTerm] = useState('');
 
   // Filter products by category and search term
   const filteredProducts = products.filter(
     product =>
-      product.category?.toLowerCase() === category?.toLowerCase() && // Optional chaining to avoid undefined errors
-      product.name?.toLowerCase().includes(searchTerm.toLowerCase()) // Optional chaining
+      product.category?.toLowerCase() === category?.toLowerCase() &&
+      product.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -32,7 +33,12 @@ const CategoryPage = () => {
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">Price: ${product.price}</p>
-                  <button className="btn btn-primary">Add to Cart</button>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={() => onAddToCart(product)} 
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>

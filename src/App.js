@@ -34,10 +34,12 @@ function App() {
   // Function to add product to cart
   const handleAddToCart = (product) => {
     setCartItems((prevCartItems) => {
-      const existingProduct = prevCartItems.find(item => item.id === product.id);
+      const existingProduct = prevCartItems.find(
+        (item) => item.id === product.id
+      );
       if (existingProduct) {
         // If the product already exists in the cart, update the quantity
-        return prevCartItems.map(item =>
+        return prevCartItems.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
@@ -52,7 +54,7 @@ function App() {
   // Function to update product quantity in cart
   const updateCartQuantity = (productId, newQuantity) => {
     setCartItems((prevCartItems) =>
-      prevCartItems.map(item =>
+      prevCartItems.map((item) =>
         item.id === productId
           ? { ...item, quantity: Math.max(newQuantity, 0) } // Prevent negative quantity
           : item
@@ -62,7 +64,7 @@ function App() {
 
   // Function to remove product from cart
   const removeFromCart = (product) => {
-    setCartItems(cartItems.filter(item => item.id !== product.id));
+    setCartItems(cartItems.filter((item) => item.id !== product.id));
   };
 
   return (
@@ -74,7 +76,7 @@ function App() {
           removeFromCart={removeFromCart}
           updateCartQuantity={updateCartQuantity}
         />
-        
+
         {/* Search bar with live suggestions */}
         <SearchBar onSearch={handleSearch} />
 
@@ -86,7 +88,12 @@ function App() {
             {/* Product listing page route with search functionality */}
             <Route
               path="/products"
-              element={<ProductList searchTerm={searchTerm} onAddToCart={handleAddToCart} />}
+              element={
+                <ProductList
+                  searchTerm={searchTerm}
+                  onAddToCart={handleAddToCart}
+                />
+              }
             />
 
             {/* Product detail page route */}
