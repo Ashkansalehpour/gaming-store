@@ -4,10 +4,10 @@ Here is the updated `README.md` file with your email included:
 
 # Gaming Store
 
-![GitHub repo size](https://img.shields.io/github/repo-size/yourusername/gaming-store)
-![GitHub contributors](https://img.shields.io/github/contributors/yourusername/gaming-store)
-![GitHub stars](https://img.shields.io/github/stars/yourusername/gaming-store?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/gaming-store?style=social)
+![GitHub repo size](https://img.shields.io/github/repo-size/Ashkansalehpour/gaming-store)
+![GitHub contributors](https://img.shields.io/github/contributors/Ashkansalehpour/gaming-store)
+![GitHub stars](https://img.shields.io/github/stars/Ashkansalehpour/gaming-store?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Ashkansalehpour/gaming-store?style=social)
 
 A modern and responsive gaming store web application built with React, React Router, and Bootstrap. The app showcases various gaming products such as gaming chairs, monitors, mice, keyboards, and more, with a clean and intuitive user interface.
 
@@ -117,7 +117,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Ashkan Shapourian - [ashkanspdev@gmail.com](mailto:ashkanspdev@gmail.com)
 
-Project Link: [https://github.com/yourusername/gaming-store](https://github.com/yourusername/gaming-store)
+Project Link: [https://github.com/Ashkansalehpour/gaming-store](https://github.com/Ashkansalehpour/gaming-store)
 
 ## Acknowledgements
 
