@@ -22,10 +22,18 @@ const NavbarComponent = ({ cartItems, removeFromCart, updateCartQuantity }) => {
             <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link>
             </li>
+            {/* Add Product link */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/add-product">Add Product</Link>
+            </li>
           </ul>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} updateCartQuantity={updateCartQuantity} />
+              <ShoppingCart 
+                cartItems={cartItems} 
+                removeFromCart={removeFromCart} 
+                updateCartQuantity={updateCartQuantity} 
+              />
             </li>
           </ul>
         </div>

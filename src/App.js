@@ -10,8 +10,9 @@ import SearchBar from "./components/Header/SearchBar";
 import Footer from "./components/Footer/Footer";
 import Cart from "./pages/Cart";
 import CategoryPage from "./pages/CategoryPage";
-import products from "./data/Products"; 
-import "./App.css"; 
+import AddProduct from "./pages/AddProduct"; // Import the AddProduct page
+import products from "./data/Products";
+import "./App.css";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState(""); // Initialize searchTerm to an empty string
@@ -119,6 +120,9 @@ function App() {
               path="/category/:category"
               element={<CategoryPage onAddToCart={handleAddToCart} />}
             />
+
+            {/* Add Product page route */}
+            <Route path="/add-product" element={<AddProduct />} />
           </Routes>
         </main>
 
