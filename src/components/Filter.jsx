@@ -17,7 +17,7 @@ function Filter({ onFilterChange }) {
     const brand = e.target.value;
     setSelectedBrand(brand);
     onFilterChange({ category: selectedCategory, brand, color: selectedColor, priceRange: selectedPriceRange, year: selectedYear });
-  };
+  };  
 
   const handleColorChange = (e) => {
     const color = e.target.value;

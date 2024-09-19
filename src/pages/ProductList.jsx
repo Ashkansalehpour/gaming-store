@@ -15,11 +15,16 @@ function ProductList({ searchTerm, onAddToCart }) {
 
   useEffect(() => {
     const filtered = products.filter(product => {
+      // Ensure the fields we're checking exist to avoid errors
+      const productName = product.name ? product.name.toLowerCase() : '';
+      const productBrand = product.brand ? product.brand.toLowerCase() : '';
+      const productColor = product.color ? product.color.toLowerCase() : '';
+
       return (
         (searchTerm === '' ||
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.color.toLowerCase().includes(searchTerm.toLowerCase())) &&
+          (productName && productName.includes(searchTerm.toLowerCase())) ||
+          (productBrand && productBrand.includes(searchTerm.toLowerCase())) ||
+          (productColor && productColor.includes(searchTerm.toLowerCase()))) &&
         (filters.category === '' || product.category === filters.category) &&
         (filters.brand === '' || product.brand === filters.brand) &&
         (filters.color === '' || product.color === filters.color) &&
@@ -27,6 +32,7 @@ function ProductList({ searchTerm, onAddToCart }) {
         (filters.year === '' || product.year === filters.year)
       );
     });
+    
     setFilteredProducts(filtered);
   }, [searchTerm, filters]);
 
@@ -40,13 +46,17 @@ function ProductList({ searchTerm, onAddToCart }) {
         <Filter onFilterChange={handleFilterChange} />
       </div>
       <div className="product-section">
-        {filteredProducts.map(product => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
-            onAddToCart={onAddToCart}
-          />
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map(product => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onAddToCart={onAddToCart}
+            />
+          ))
+        ) : (
+          <h3>No products found matching your criteria.</h3> // Handle no results
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
-import React from 'react';
-import NavbarComponent from './NavbarComponent';
-import SearchBar from './SearchBar';
+import React from "react";
+import NavbarComponent from "../NavbarComponent";
+import SearchBar from "./SearchBar";
 
 const Header = ({ onSearch }) => {
   return (

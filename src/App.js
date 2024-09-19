@@ -5,16 +5,16 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
-import NavbarComponent from "./components/NavbarComponent";
-import SearchBar from "./components/SearchBar"; // Importing the updated SearchBar with live suggestions
-import Footer from "./components/Footer";
+import NavbarComponent from "./components/Header/NavbarComponent";
+import SearchBar from "./components/Header/SearchBar";
+import Footer from "./components/Footer/Footer";
 import Cart from "./pages/Cart";
 import CategoryPage from "./pages/CategoryPage";
-import products from "./data/Products"; // Assuming product data is stored here
-import "./App.css";
+import products from "./data/Products"; 
+import "./App.css"; 
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // Initialize searchTerm to an empty string
   const [cartItems, setCartItems] = useState(() => {
     // Load cart items from localStorage on app load
     const savedCartItems = localStorage.getItem("cartItems");
@@ -77,13 +77,13 @@ function App() {
           updateCartQuantity={updateCartQuantity}
         />
 
-        {/* Search bar with live suggestions */}
+        {/* Search bar with live suggestions (removed from Home) */}
         <SearchBar onSearch={handleSearch} />
 
         <main className="container mt-4">
           <Routes>
             {/* Home page route */}
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home searchTerm={searchTerm} />} />
 
             {/* Product listing page route with search functionality */}
             <Route
