@@ -1,8 +1,6 @@
-// src/components/SearchBar.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import products from "../../data/Products"; // Import the products
-
+import products from "../../data/Products";
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -14,7 +12,7 @@ const SearchBar = ({ onSearch }) => {
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    onSearch(value); // Notify parent about the search term
+    onSearch(value); 
   };
 
   return (

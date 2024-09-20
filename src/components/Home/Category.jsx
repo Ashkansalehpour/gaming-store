@@ -6,7 +6,7 @@ const categories = [
   { name: 'Mouse', image: '/assets/images/gamingmouse.jpg' },
   { name: 'Keyboard', image: '/assets/images/gamingkeyboard.jpg' },
   { name: 'Monitor', image: '/assets/images/gamingMonitor.jpg' },
-  // Add more categories as needed
+
 ];
 
 const Category = () => {

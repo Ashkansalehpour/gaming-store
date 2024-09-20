@@ -1,52 +1,86 @@
 import React, { useState } from 'react';
 
 const AddProduct = ({ onAddProduct }) => {
-  const [productName, setProductName] = useState('');
-  const [title, setTitle] = useState('');
-  const [color, setColor] = useState('');
-  const [description, setDescription] = useState('');
-  const [brand, setBrand] = useState('');
-  const [price, setPrice] = useState('');
-  const [image, setImage] = useState(null); // For handling the uploaded image
+  const [formData, setFormData] = useState({
+    productName: '',
+    title: '',
+    color: '',
+    description: '',
+    brand: '',
+    price: '',
+    image: null,
+  });
   const [imagePreview, setImagePreview] = useState(''); // For previewing the selected image
+  const [errorMessage, setErrorMessage] = useState(''); // For error handling
+
+  // Function to handle input change for all fields
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   // Function to handle image selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImage(file); // Set the selected file to state
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result); // Preview the image
-    };
-    reader.readAsDataURL(file);
+    if (file) {
+      // Validate file type and size (max 5MB)
+      const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      if (!validTypes.includes(file.type)) {
+        setErrorMessage('Only JPG, PNG, or GIF images are allowed.');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        setErrorMessage('Image size should be less than 5MB.');
+        return;
+      }
+      setFormData((prevData) => ({
+        ...prevData,
+        image: file,
+      }));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setErrorMessage('');
+    }
   };
 
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Assuming you'd handle the backend submission here. On the frontend, you can just send the data
+    const { productName, title, color, description, brand, price, image } = formData;
+    if (!productName || !title || !description || !brand || !price) {
+      setErrorMessage('Please fill in all required fields.');
+      return;
+    }
+
     const newProduct = {
       name: productName,
-      title: title,
-      color: color,
-      description: description,
-      brand: brand,
-      price: price,
-      image: image, // Send image file along with other data
+      title,
+      color,
+      description,
+      brand,
+      price,
+      image, // Send image file along with other data
     };
 
-    // You'd likely want to handle this via API in the future
+    // Handle product addition
     onAddProduct(newProduct);
 
     // Clear form fields after submission
-    setProductName('');
-    setTitle('');
-    setColor('');
-    setDescription('');
-    setBrand('');
-    setPrice('');
-    setImage(null);
+    setFormData({
+      productName: '',
+      title: '',
+      color: '',
+      description: '',
+      brand: '',
+      price: '',
+      image: null,
+    });
     setImagePreview('');
   };
 
@@ -54,14 +88,17 @@ const AddProduct = ({ onAddProduct }) => {
     <div className="container mt-4">
       <h2>Add New Product</h2>
       <form onSubmit={handleSubmit}>
+        {errorMessage && <p className="text-danger">{errorMessage}</p>}
+        
         <div className="mb-3">
           <label htmlFor="productName" className="form-label">Product Name</label>
           <input
             type="text"
             className="form-control"
             id="productName"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
+            name="productName"
+            value={formData.productName}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -71,8 +108,9 @@ const AddProduct = ({ onAddProduct }) => {
             type="text"
             className="form-control"
             id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -82,8 +120,9 @@ const AddProduct = ({ onAddProduct }) => {
             type="text"
             className="form-control"
             id="color"
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
+            name="color"
+            value={formData.color}
+            onChange={handleInputChange}
           />
         </div>
         <div className="mb-3">
@@ -91,8 +130,9 @@ const AddProduct = ({ onAddProduct }) => {
           <textarea
             className="form-control"
             id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -102,8 +142,9 @@ const AddProduct = ({ onAddProduct }) => {
             type="text"
             className="form-control"
             id="brand"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
+            name="brand"
+            value={formData.brand}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -113,8 +154,9 @@ const AddProduct = ({ onAddProduct }) => {
             type="number"
             className="form-control"
             id="price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            name="price"
+            value={formData.price}
+            onChange={handleInputChange}
             required
           />
         </div>

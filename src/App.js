@@ -11,7 +11,7 @@ import Footer from "./components/Footer/Footer";
 import Cart from "./pages/Cart";
 import CategoryPage from "./pages/CategoryPage";
 import AddProduct from "./pages/AddProduct"; // Import the AddProduct page
-import products from "./data/Products";
+import products from "./data/Products"; // Assuming you have a Products data file
 import "./App.css";
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
     const savedCartItems = localStorage.getItem("cartItems");
     return savedCartItems ? JSON.parse(savedCartItems) : [];
   });
+  const [allProducts, setAllProducts] = useState(products); // Assuming 'products' is the initial product list
 
   // Save cart items to localStorage whenever the cartItems state changes
   useEffect(() => {
@@ -68,6 +69,12 @@ function App() {
     setCartItems(cartItems.filter((item) => item.id !== product.id));
   };
 
+  // Function to handle adding new products
+  const handleAddProduct = (newProduct) => {
+    setAllProducts([...allProducts, newProduct]); // Add the new product to the list
+    console.log("New product added:", newProduct); // Log for testing
+  };
+
   return (
     <Router>
       <div className="App">
@@ -93,6 +100,7 @@ function App() {
                 <ProductList
                   searchTerm={searchTerm}
                   onAddToCart={handleAddToCart}
+                  products={allProducts} // Pass the products list to ProductList
                 />
               }
             />
@@ -122,7 +130,10 @@ function App() {
             />
 
             {/* Add Product page route */}
-            <Route path="/add-product" element={<AddProduct />} />
+            <Route
+              path="/add-product"
+              element={<AddProduct onAddProduct={handleAddProduct} />} // Pass handleAddProduct to AddProduct
+            />
           </Routes>
         </main>
 
