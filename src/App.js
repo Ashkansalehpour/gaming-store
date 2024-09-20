@@ -1,143 +1,98 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import Home from "./pages/Home";
-import ProductList from "./pages/ProductList";
-import ProductDetail from "./pages/ProductDetail";
 import NavbarComponent from "./components/Header/NavbarComponent";
 import SearchBar from "./components/Header/SearchBar";
 import Footer from "./components/Footer/Footer";
-import Cart from "./pages/Cart";
-import CategoryPage from "./pages/CategoryPage";
-import AddProduct from "./pages/AddProduct"; // Import the AddProduct page
-import products from "./data/Products"; // Assuming you have a Products data file
+import products from "./data/Products";
 import "./App.css";
 
+// Lazy-loaded components for performance optimization
+const Home = lazy(() => import("./pages/Home"));
+const ProductList = lazy(() => import("./pages/ProductList"));
+const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const Cart = lazy(() => import("./pages/Cart"));
+const CategoryPage = lazy(() => import("./pages/CategoryPage"));
+const AddProduct = lazy(() => import("./pages/AddProduct"));
+const SignUp = lazy(() => import("./pages/SignUp"));
+
+// Define localStorage key constant for better maintainability
+const CART_ITEMS_KEY = "cartItems";
+
 function App() {
-  const [searchTerm, setSearchTerm] = useState(""); // Initialize searchTerm to an empty string
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [cartItems, setCartItems] = useState(() => {
-    // Load cart items from localStorage on app load
-    const savedCartItems = localStorage.getItem("cartItems");
+    const savedCartItems = localStorage.getItem(CART_ITEMS_KEY);
     return savedCartItems ? JSON.parse(savedCartItems) : [];
   });
-  const [allProducts, setAllProducts] = useState(products); // Assuming 'products' is the initial product list
 
-  // Save cart items to localStorage whenever the cartItems state changes
+  const [allProducts, setAllProducts] = useState(products);
+
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem(CART_ITEMS_KEY, JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Function to handle search input
   const handleSearch = (term) => {
-    setSearchTerm(term);
+    setSearchTerm(term.trim());
   };
 
-  // Function to add product to cart
   const handleAddToCart = (product) => {
     setCartItems((prevCartItems) => {
-      const existingProduct = prevCartItems.find(
-        (item) => item.id === product.id
-      );
+      const existingProduct = prevCartItems.find((item) => item.id === product.id);
+      
       if (existingProduct) {
-        // If the product already exists in the cart, update the quantity
         return prevCartItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
-        // If the product doesn't exist, add it to the cart with a quantity of 1
         return [...prevCartItems, { ...product, quantity: 1 }];
       }
     });
   };
 
-  // Function to update product quantity in cart
   const updateCartQuantity = (productId, newQuantity) => {
     setCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
         item.id === productId
-          ? { ...item, quantity: Math.max(newQuantity, 0) } // Prevent negative quantity
+          ? { ...item, quantity: Math.max(newQuantity, 0) }
           : item
       )
     );
   };
 
-  // Function to remove product from cart
   const removeFromCart = (product) => {
-    setCartItems(cartItems.filter((item) => item.id !== product.id));
+    setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== product.id));
   };
 
-  // Function to handle adding new products
   const handleAddProduct = (newProduct) => {
-    setAllProducts([...allProducts, newProduct]); // Add the new product to the list
-    console.log("New product added:", newProduct); // Log for testing
+    setAllProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
   return (
     <Router>
       <div className="App">
-        {/* Navbar with cart information */}
         <NavbarComponent
           cartItems={cartItems}
           removeFromCart={removeFromCart}
           updateCartQuantity={updateCartQuantity}
         />
-
-        {/* Search bar with live suggestions (removed from Home) */}
         <SearchBar onSearch={handleSearch} />
 
         <main className="container mt-4">
-          <Routes>
-            {/* Home page route */}
-            <Route path="/" element={<Home searchTerm={searchTerm} />} />
-
-            {/* Product listing page route with search functionality */}
-            <Route
-              path="/products"
-              element={
-                <ProductList
-                  searchTerm={searchTerm}
-                  onAddToCart={handleAddToCart}
-                  products={allProducts} // Pass the products list to ProductList
-                />
-              }
-            />
-
-            {/* Product detail page route */}
-            <Route
-              path="/product/:id"
-              element={<ProductDetail onAddToCart={handleAddToCart} />}
-            />
-
-            {/* Cart page route */}
-            <Route
-              path="/cart"
-              element={
-                <Cart
-                  cartItems={cartItems}
-                  updateCartQuantity={updateCartQuantity}
-                  removeFromCart={removeFromCart}
-                />
-              }
-            />
-
-            {/* Dynamic route for category page */}
-            <Route
-              path="/category/:category"
-              element={<CategoryPage onAddToCart={handleAddToCart} />}
-            />
-
-            {/* Add Product page route */}
-            <Route
-              path="/add-product"
-              element={<AddProduct onAddProduct={handleAddProduct} />} // Pass handleAddProduct to AddProduct
-            />
-          </Routes>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Home searchTerm={searchTerm} />} />
+              <Route path="/products" element={<ProductList searchTerm={searchTerm} onAddToCart={handleAddToCart} products={allProducts} />} />
+              <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
+              <Route path="/cart" element={<Cart cartItems={cartItems} updateCartQuantity={updateCartQuantity} removeFromCart={removeFromCart} />} />
+              <Route path="/category/:category" element={<CategoryPage onAddToCart={handleAddToCart} />} />
+              <Route path="/add-product" element={<AddProduct onAddProduct={handleAddProduct} />} />
+              <Route path="/sign-up" element={<SignUp />} /> {/* Add the SignUp route */}
+            </Routes>
+          </Suspense>
         </main>
 
-        {/* Footer */}
         <Footer />
       </div>
     </Router>
