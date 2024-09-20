@@ -1,7 +1,3 @@
-Here is the updated `README.md` file with your email included:
-
----
-
 # Gaming Store
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Ashkansalehpour/gaming-store)
