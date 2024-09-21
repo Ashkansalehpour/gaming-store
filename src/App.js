@@ -16,18 +16,20 @@ const Cart = lazy(() => import("./pages/Cart"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const AddProduct = lazy(() => import("./pages/AddProduct"));
 const SignUp = lazy(() => import("./pages/SignUp"));
+const UserPanel = lazy(() => import("./pages/UserPanel")); // User panel page
 
 // Define localStorage key constant for better maintainability
 const CART_ITEMS_KEY = "cartItems";
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState(() => {
     const savedCartItems = localStorage.getItem(CART_ITEMS_KEY);
     return savedCartItems ? JSON.parse(savedCartItems) : [];
   });
 
   const [allProducts, setAllProducts] = useState(products);
+  const [user, setUser] = useState(null); // User state for managing logged-in users
 
   useEffect(() => {
     localStorage.setItem(CART_ITEMS_KEY, JSON.stringify(cartItems));
@@ -39,11 +41,15 @@ function App() {
 
   const handleAddToCart = (product) => {
     setCartItems((prevCartItems) => {
-      const existingProduct = prevCartItems.find((item) => item.id === product.id);
-      
+      const existingProduct = prevCartItems.find(
+        (item) => item.id === product.id
+      );
+
       if (existingProduct) {
         return prevCartItems.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
       } else {
         return [...prevCartItems, { ...product, quantity: 1 }];
@@ -62,12 +68,36 @@ function App() {
   };
 
   const removeFromCart = (product) => {
-    setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== product.id));
+    setCartItems((prevCartItems) =>
+      prevCartItems.filter((item) => item.id !== product.id)
+    );
   };
 
   const handleAddProduct = (newProduct) => {
     setAllProducts((prevProducts) => [...prevProducts, newProduct]);
   };
+
+  // Handle user login
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+
+  // Handle user logout
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  useEffect(() => {
+    // Simulate a user logging in (for testing purposes)
+    const mockUser = {
+      name: "Ashi",
+      email: "Ashi@example.com",
+      profilePicture: "https://via.placeholder.com/150",
+      createdAt: "2026-06-06",
+    };
+
+    handleLogin(mockUser);
+  }, []);
 
   return (
     <Router>
@@ -76,6 +106,8 @@ function App() {
           cartItems={cartItems}
           removeFromCart={removeFromCart}
           updateCartQuantity={updateCartQuantity}
+          user={user} // Pass the user to the NavbarComponent
+          handleLogout={handleLogout} // Pass logout handler to Navbar
         />
         <SearchBar onSearch={handleSearch} />
 
@@ -83,12 +115,44 @@ function App() {
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               <Route path="/" element={<Home searchTerm={searchTerm} />} />
-              <Route path="/products" element={<ProductList searchTerm={searchTerm} onAddToCart={handleAddToCart} products={allProducts} />} />
-              <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
-              <Route path="/cart" element={<Cart cartItems={cartItems} updateCartQuantity={updateCartQuantity} removeFromCart={removeFromCart} />} />
-              <Route path="/category/:category" element={<CategoryPage onAddToCart={handleAddToCart} />} />
-              <Route path="/add-product" element={<AddProduct onAddProduct={handleAddProduct} />} />
-              <Route path="/sign-up" element={<SignUp />} /> {/* Add the SignUp route */}
+              <Route
+                path="/products"
+                element={
+                  <ProductList
+                    searchTerm={searchTerm}
+                    onAddToCart={handleAddToCart}
+                    products={allProducts}
+                  />
+                }
+              />
+              <Route
+                path="/product/:id"
+                element={<ProductDetail onAddToCart={handleAddToCart} />}
+              />
+              <Route
+                path="/cart"
+                element={
+                  <Cart
+                    cartItems={cartItems}
+                    updateCartQuantity={updateCartQuantity}
+                    removeFromCart={removeFromCart}
+                  />
+                }
+              />
+              <Route
+                path="/category/:category"
+                element={<CategoryPage onAddToCart={handleAddToCart} />}
+              />
+              <Route
+                path="/add-product"
+                element={<AddProduct onAddProduct={handleAddProduct} />}
+              />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route
+                path="/user-panel"
+                element={user ? <UserPanel user={user} /> : <SignUp />}
+              />{" "}
+              {/* User Panel Route */}
             </Routes>
           </Suspense>
         </main>

@@ -2,8 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ShoppingCart from "./ShoppingCart";
-
-const NavbarComponent = ({ cartItems, removeFromCart, updateCartQuantity }) => {
+import "../../styles/Navbar.css"; 
+const NavbarComponent = ({
+  cartItems,
+  removeFromCart,
+  updateCartQuantity,
+  user,
+  handleLogout,
+}) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -44,13 +50,44 @@ const NavbarComponent = ({ cartItems, removeFromCart, updateCartQuantity }) => {
               </Link>
             </li>
           </ul>
+
           <ul className="navbar-nav ms-auto">
-            {/* Sign Up Button */}
-            <li className="nav-item">
-              <Link className="nav-link" to="/sign-up">
-                Sign Up
-              </Link>
-            </li>
+            {/* User Profile Picture or Sign Up */}
+            {user ? (
+              <>
+                <li className="nav-item dropdown">
+                  <img
+                    src={user.profilePicture}
+                    alt="Profile"
+                    className="rounded-circle"
+                    width="40"
+                    height="40"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style={{ cursor: "pointer" }}
+                  />
+                  <ul className="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <Link className="dropdown-item" to="/user-panel">
+                        User Panel
+                      </Link>
+                    </li>
+                    <li>
+                      <button className="dropdown-item" onClick={handleLogout}>
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link" to="/sign-up">
+                  Sign Up
+                </Link>
+              </li>
+            )}
+
             {/* Cart Icon */}
             <li className="nav-item">
               <ShoppingCart
