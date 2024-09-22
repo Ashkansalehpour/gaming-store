@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import products from '../data/Products';
-import '../styles/ProductDetail.css';
+import '../styles/Products/ProductDetail.css';
 
 function ProductDetail({ onAddToCart }) {
   const { id } = useParams(); // Get the product ID from URL parameters

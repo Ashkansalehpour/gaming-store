@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ShoppingCart from "./ShoppingCart";
-import "../../styles/Navbar.css"; 
+import "../../styles/Header/Navbar.css"; 
 const NavbarComponent = ({
   cartItems,
   removeFromCart,
