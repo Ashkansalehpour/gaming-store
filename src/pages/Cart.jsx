@@ -15,6 +15,12 @@ const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
     updateCartQuantity(id, quantity + 1);
   };
 
+  // Handle Pay button click
+  const handlePay = () => {
+    // This function can be extended later by backend integration to handle inventory updates.
+    console.log("Pay button clicked, ready for backend integration");
+  };
+
   return (
     <div className="cart-page container">
       <h2>Your Shopping Cart</h2>
@@ -62,6 +68,13 @@ const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
           <div className="cart-total mt-4 text-end">
             <h4>Total Price: ${totalPrice}</h4>
           </div>
+
+          {/* Pay Button */}
+          <div className="d-flex justify-content-end mt-4">
+            <button className="btn btn-success btn-lg" onClick={handlePay}>
+              Pay
+            </button>
+          </div>
         </>
       )}
     </div>
@@ -69,4 +82,3 @@ const Cart = ({ cartItems, updateCartQuantity, removeFromCart }) => {
 };
 
 export default Cart;
-  
